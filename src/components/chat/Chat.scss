@@ -1,0 +1,12 @@
+.chat-overlay {
+  position: fixed;
+  width: 80%;
+  height: 70%;
+  top: 10%;
+  left: 10%;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px 2px gray;
+  display: flex;
+}

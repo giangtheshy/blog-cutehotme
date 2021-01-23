@@ -1,0 +1,84 @@
+@import "../../scss/config";
+
+.form {
+  width: 35%;
+  padding: 1rem;
+  background: #fff;
+  height: 50%;
+  border-radius: 0.2rem;
+  &__title {
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    label {
+      width: 100%;
+      position: relative;
+      margin: 0.5rem 0;
+      input[type="text"] {
+        width: 100%;
+        height: 2rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.3rem;
+      }
+    }
+    .creator {
+      @include input("Creator");
+    }
+    .title {
+      @include input("Title");
+    }
+    .message {
+      @include input("Message");
+    }
+    .tags {
+      @include input("Tags(ex: react,java,python...");
+      @extend .creator;
+
+      &.focus {
+        &::before {
+          content: "Tags";
+        }
+      }
+      &:focus-within {
+        &::before {
+          content: "Tags";
+        }
+      }
+    }
+    .selectedFileURL {
+      @include input("Image URL");
+    }
+    .select-img {
+      @include button;
+      text-align: left;
+      width: 7rem;
+      font-size: 0.9rem;
+      margin: 1rem 0.5rem;
+    }
+    .submit-btn {
+      background: $mainBlue;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      margin: 1rem;
+      cursor: pointer;
+      border-radius: 1rem;
+      padding: 0.3rem;
+      transition: $mainTransition;
+      &:hover {
+        background: rgb(70, 187, 255);
+      }
+    }
+
+    .selectedFile {
+      height: 2.5rem;
+      display: grid;
+      place-items: center;
+      border: 1px dotted #bbb;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@import "../../scss/config";
+
+.header {
+  @include flexCenter;
+  justify-content: space-between;
+  padding: 0.5rem 3rem;
+  width: 100%;
+  height: 3rem;
+  margin: 1rem 0 3rem 0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 0 3px #bbb;
+  &__left {
+    cursor: pointer;
+    @include flexCenter;
+    h1 {
+      color: $mainBlue;
+    }
+    img {
+      height: 2.5rem;
+      margin-left: 1rem;
+    }
+  }
+  &__right {
+    @include flexCenter;
+    button {
+      @include button;
+      margin-left: 1rem;
+    }
+    .user-status {
+      @include flexCenter;
+      .avatar {
+        @include avatar(2.5rem);
+      }
+      .display-name {
+        font-style: inherit;
+        text-transform: capitalize;
+      }
+    }
+  }
+}

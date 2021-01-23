@@ -1,0 +1,17 @@
+@import "../../../../scss/config";
+.tools-bar {
+  position: fixed;
+  bottom: 1rem;
+  right: 10rem;
+  width: 20rem;
+  height: 5rem;
+  background-color: #fff;
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
+  .open-chat {
+    @include button;
+    width: 11rem;
+    font-size: 1.5rem;
+  }
+}

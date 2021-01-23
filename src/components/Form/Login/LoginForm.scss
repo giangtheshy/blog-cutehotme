@@ -1,0 +1,39 @@
+@import "../../../scss/config";
+
+.form {
+  width: 35%;
+  padding: 1rem;
+  background: #fff;
+  height: 50%;
+  border-radius: 0.2rem;
+  &__title {
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .password {
+      @include input("Password");
+    }
+
+    .email {
+      @include input("Email");
+    }
+
+    .submit-btn {
+      background: $mainBlue;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      margin: 1rem;
+      cursor: pointer;
+      border-radius: 1rem;
+      padding: 0.3rem;
+      transition: $mainTransition;
+      &:hover {
+        background: rgb(70, 187, 255);
+      }
+    }
+  }
+}

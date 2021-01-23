@@ -1,0 +1,25 @@
+@import "../../../../scss/config";
+.sidebar {
+  width: 30%;
+  text-align: center;
+  position: relative;
+  margin-right: 1rem;
+  .room-container {
+    border-top: 1px solid #bbb;
+    margin-top: 1rem;
+    overflow: auto;
+  }
+  form {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .title {
+      @include input("room name");
+    }
+    button {
+      width: 40%;
+      @include button;
+      margin-left: 1rem;
+    }
+  }
+}

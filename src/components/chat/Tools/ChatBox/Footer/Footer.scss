@@ -1,0 +1,30 @@
+@import "../../../../../scss/config";
+.footer-chat-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  form {
+    padding: 0 1rem;
+    display: flex;
+    input {
+      width: 90%;
+      padding: 0.3rem 1rem;
+      border-radius: 1rem;
+      border: none;
+      background-color: #eee;
+    }
+    button {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      margin: 0 1rem;
+      place-items: center;
+      border: 1px solid $mainBlue;
+      background: transparent;
+      border-radius: 50%;
+      color: $mainBlue;
+      cursor: pointer;
+    }
+  }
+}

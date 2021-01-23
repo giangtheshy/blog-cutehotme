@@ -1,0 +1,51 @@
+@import "../../../scss/config";
+
+.form {
+  width: 35%;
+  padding: 1rem;
+  background: #fff;
+  height: 50%;
+  border-radius: 0.2rem;
+  &__title {
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .display-name {
+      @include input("Name");
+    }
+    .password {
+      @include input("Password");
+    }
+    .password-check {
+      @include input("Password Confirm");
+    }
+    .email {
+      @include input("Email");
+    }
+    .photo-url {
+      height: 2.5rem;
+      display: grid;
+      place-items: center;
+      border: 1px dotted #bbb;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background: $mainBlue;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      margin: 1rem;
+      cursor: pointer;
+      border-radius: 1rem;
+      padding: 0.3rem;
+      transition: $mainTransition;
+      &:hover {
+        background: rgb(70, 187, 255);
+      }
+    }
+  }
+}

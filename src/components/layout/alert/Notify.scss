@@ -1,0 +1,20 @@
+.notify {
+  width: 80%;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+
+  p {
+    text-align: center;
+  }
+  &.danger {
+    background-color: rgb(255, 207, 207);
+    color: rgb(192, 55, 55);
+    box-shadow: 0 0 5px 1px rgb(247, 155, 155);
+  }
+  &.success {
+    background-color: rgb(193, 247, 193);
+    color: rgb(48, 177, 48);
+    box-shadow: 0 0 5px 1px rgb(147, 243, 147);
+  }
+}
