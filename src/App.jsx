@@ -9,6 +9,7 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Error from "./components/pages/Error";
+import PostPage from "./components/pages/PostPage";
 
 import { fetchPost } from "./actions/post.action";
 import { checkLogin } from "./actions/user.action";
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/post/:id" component={PostPage} />
           <Route path="*" component={Error} />
         </Switch>
       </Router>

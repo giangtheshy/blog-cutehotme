@@ -1,6 +1,17 @@
-import { CREATE, FETCH_ALL, DELETE, LIKE, UPDATE, GET_CURRENT_ID } from "../constants/actionTypes";
+import {
+  CREATE,
+  FETCH_ALL,
+  DELETE,
+  LIKE,
+  UPDATE,
+  GET_CURRENT_ID,
+  GET_COMMENTS,
+  CREATE_COMMENT,
+  GET_POST,
+  LIKE_SINGLE,
+} from "../constants/actionTypes";
 
-export default (postState = { posts: [], currentId: null }, action) => {
+export default (postState = { posts: [], currentId: null, comments: [], post: {} }, action) => {
   switch (action.type) {
     case CREATE:
       return { ...postState, posts: [...postState.posts, action.payload] };
@@ -24,8 +35,28 @@ export default (postState = { posts: [], currentId: null }, action) => {
             : post
         ),
       };
+    case LIKE_SINGLE:
+      return {
+        ...postState,
+        post: postState.post.likeCount.find((like) => like === action.payload.uid)
+          ? { ...postState.post, likeCount: postState.post.likeCount.filter((like) => like !== action.payload.uid) }
+          : { ...postState.post, likeCount: [...postState.post.likeCount, action.payload.uid] },
+      };
     case GET_CURRENT_ID:
       return { ...postState, currentId: action.payload };
+    case CREATE_COMMENT:
+      return {
+        ...postState,
+        comments: [...postState.comments, action.payload],
+        post: { ...postState.post, comments: [...postState.post.comments, action.payload._id] },
+        posts: postState.posts.map((post) =>
+          post._id === action.payload.pid ? { ...post, comments: [...post.comments, action.payload._id] } : post
+        ),
+      };
+    case GET_COMMENTS:
+      return { ...postState, comments: action.payload };
+    case GET_POST:
+      return { ...postState, post: action.payload };
     default:
       return postState;
   }

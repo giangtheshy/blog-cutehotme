@@ -92,9 +92,9 @@
     background-color: #fff;
     @include flexCenter;
     justify-content: space-between;
-    button {
-      @include button;
-    }
+    // button {
+    //   @include button;
+    // }
     .remove-btn {
       @include button(brown);
       &.disabled {

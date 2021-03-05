@@ -20,6 +20,7 @@ const Header = () => {
   const logout = async () => {
     await setCookies("user", "", { path: "/" });
     dispatch(logoutUser());
+    history.push("/login");
   };
   return (
     <header className="header">

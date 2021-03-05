@@ -1,30 +1,33 @@
 import React from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+import { FaTrash, FaComment } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import "./Post.scss";
-import { deletePost, likePost, getCurrentId } from "../../../actions/post.action";
+import { deletePost, likePost, getCurrentId, likePostSingle } from "../../../actions/post.action";
+import Button from "../../../utils/elements/Button/Button";
+import moment from "../../../utils/functions/moment";
 
-const Post = ({ _id, creator, title, message, tags, selectedFile, likeCount, createdAt, photoURL, userID }) => {
+const Post = ({
+  _id,
+  creator,
+  title,
+  message,
+  tags,
+  selectedFile,
+  likeCount,
+  createdAt,
+  photoURL,
+  userID,
+  comments,
+  single,
+}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.users.user);
-  const times = () => {
-    const time = new Date().getTime() - new Date(createdAt).getTime();
-    if (time / (1000 * 60 * 60 * 24 * 30) >= 1) {
-      return `${Math.floor(time / (1000 * 60 * 60 * 24 * 30))} months ago`;
-    } else if (time / (1000 * 60 * 60 * 24) >= 1) {
-      return `${Math.floor(time / (1000 * 60 * 60 * 24))} days ago`;
-    } else if (time / (1000 * 60 * 60) >= 1) {
-      return `${Math.floor(time / (1000 * 60 * 60))} hours ago`;
-    } else if (time / (1000 * 60) >= 1) {
-      return `${Math.floor(time / (1000 * 60))} minutes ago`;
-    } else {
-      return "Just now";
-    }
-  };
-  console.log(user._id);
+
   return (
     <article className="post">
       <div className="post__header">
@@ -42,15 +45,22 @@ const Post = ({ _id, creator, title, message, tags, selectedFile, likeCount, cre
             <img src={photoURL} alt="avatar" className="avatar" />
             <h3>{creator}</h3>
           </div>
-          <button
-            className={`edit-btn ${userID !== user._id && "disabled"}`}
-            disabled={userID !== user._id ? true : false}
-            onClick={() => dispatch(getCurrentId(_id))}
-          >
-            <HiOutlineDotsHorizontal />
-          </button>
+          {userID === user._id && (
+            <button
+              className={`edit-btn ${userID !== user._id && "disabled"}`}
+              disabled={userID !== user._id ? true : false}
+              onClick={() => {
+                dispatch(getCurrentId(_id));
+                if (single) {
+                  history.push("/");
+                }
+              }}
+            >
+              <HiOutlineDotsHorizontal />
+            </button>
+          )}
         </div>
-        <p>{times()}</p>
+        <p>{moment(createdAt)}</p>
       </div>
       <div className="post__content">
         <p className="tags">{tags.map((tag) => `#${tag}`)}</p>
@@ -58,27 +68,30 @@ const Post = ({ _id, creator, title, message, tags, selectedFile, likeCount, cre
         <p className="message">{message}</p>
       </div>
       <div className="post__footer">
-        <button
-          className="like-btn"
+        <Button
+          count={likeCount.length}
+          text="Like"
+          Icon={likeCount.find((like) => like === user._id) ? AiOutlineLike : AiFillLike}
+          onClick={() => {
+            if (single === true) {
+              dispatch(likePostSingle(_id, user._id));
+            }
+            dispatch(likePost(_id, user._id));
+          }}
           disabled={user._id ? false : true}
-          onClick={() => dispatch(likePost(_id, user._id))}
-        >
-          {likeCount.find((like) => like === user._id) ? (
-            <>
-              <AiFillDislike /> Dislike {likeCount.length}
-            </>
-          ) : (
-            <>
-              <AiFillLike /> Like {likeCount.length}
-            </>
-          )}
-        </button>
+        />
+        <Button count={comments.length} text="" Icon={FaComment} onClick={() => history.push(`/post/${_id}`)} />
         <button
           className={`remove-btn ${userID !== user._id && "disabled"}`}
-          onClick={() => dispatch(deletePost(_id))}
+          onClick={() => {
+            dispatch(deletePost(_id));
+            if (single) {
+              history.push("/");
+            }
+          }}
           disabled={userID !== user._id ? true : false}
         >
-          <FaTrash /> Delete
+          <FaTrash />
         </button>
       </div>
     </article>

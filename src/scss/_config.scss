@@ -7,8 +7,8 @@ $mainTransition: all 0.3s ease-in-out;
   justify-content: center;
   align-items: center;
 }
-@mixin button($color: $mainBlue) {
-  background: transparent;
+@mixin button($color: $mainBlue, $background: transparent) {
+  background: $background;
   border: none;
   color: $color;
   cursor: pointer;
@@ -82,4 +82,54 @@ $mainTransition: all 0.3s ease-in-out;
   box-shadow: inset 0 0 5px 3px #bbb;
   margin: 0.5em;
   cursor: pointer;
+}
+@mixin buttonDouble($color: $mainBlue) {
+  border: 1px solid $color;
+  min-width: 35%;
+  height: 2rem;
+  border-radius: 0.3rem;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    .icon-center {
+      background-color: rgba($color, 0.7);
+    }
+  }
+  .icon-center {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    color: #fff;
+    height: 100%;
+    border-right: 1px solid $color;
+    background-color: $color;
+    font-weight: bold;
+    transition: $mainTransition;
+    .icon {
+      font-size: 1.1rem;
+      margin-right: 0.3em;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 37%;
+      right: -0.3rem;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-top: 1px solid $color;
+      border-right: 1px solid $color;
+      transform: rotate(-135deg);
+      background-color: #fff;
+    }
+  }
+  .detail {
+    color: $color;
+    width: 30%;
+  }
 }

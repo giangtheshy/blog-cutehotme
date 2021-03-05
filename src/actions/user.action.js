@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER, DELETE_USER, GET_USER, LOGOUT, CHECK_LOGIN } from "../constants/actionTypes";
+import { LOGIN, REGISTER, DELETE_USER, GET_USER, LOGOUT, CHECK_LOGIN, LOGIN_GOOGLE } from "../constants/actionTypes";
 import * as api from "../api";
 
 export const registerUser = (user, setCookies) => async (dispatch) => {
@@ -36,6 +36,15 @@ export const checkLogin = (token) => async (dispatch) => {
         dispatch({ type: CHECK_LOGIN, payload: { data, token } });
       }
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const loginGoogle = (user, setCookies) => async (dispatch) => {
+  try {
+    const { data } = await api.loginGoogle(user);
+    setCookies("user", data.token, { path: "/" });
+    dispatch({ type: LOGIN_GOOGLE, payload: data });
   } catch (error) {
     console.log(error);
   }

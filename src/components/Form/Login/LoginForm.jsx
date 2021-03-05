@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import GoogleLogin from "react-google-login";
+import { FcGoogle } from "react-icons/fc";
 
-import { loginUser } from "../../../actions/user.action";
+import { loginUser, loginGoogle } from "../../../actions/user.action";
 import "./LoginForm.scss";
 import Notify from "../../layout/alert/Notify";
 
@@ -44,6 +46,15 @@ const LoginForm = () => {
     }
     setUserData({ email: "", password: "" });
   };
+  const handleSuccess = async (res) => {
+    const { name, imageUrl, email, googleId } = res.profileObj;
+    const token = res.tokenId;
+    dispatch(loginGoogle({ name, imageUrl, googleId, email, token }, setCookies));
+    history.push("/");
+  };
+  const handleFailure = () => {
+    alert("Some errors were occur when login");
+  };
   return (
     <div className="form">
       <h4 className="form__title">Login</h4>
@@ -69,6 +80,17 @@ const LoginForm = () => {
         <button type="submit" className="submit-btn">
           Submit
         </button>
+        <GoogleLogin
+          clientId="467571315756-vigfi3qh89vvgbeqhduotlr2jso13gl5.apps.googleusercontent.com"
+          onSuccess={handleSuccess}
+          onFailure={handleFailure}
+          cookiePolicy="single_host_origin"
+          render={(props) => (
+            <button className="gg-login-btn" onClick={props.onClick} disabled={props.disabled}>
+              <FcGoogle /> Login with Google
+            </button>
+          )}
+        />
       </form>
     </div>
   );
